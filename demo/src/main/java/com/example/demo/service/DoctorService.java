@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.User;
 import com.example.demo.repository.DoctorRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ public class DoctorService {
         this.doctorRepository = doctorRepository;
     }
 
-    public void addRecipe(){
-
+    public void addPatient(User user){
+        doctorRepository.addPatient(user);
     }
 }
