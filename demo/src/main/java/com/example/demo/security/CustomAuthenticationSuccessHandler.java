@@ -12,22 +12,22 @@ import java.io.IOException;
 import java.util.Set;
 
 @Configuration
-public class Login implements AuthenticationSuccessHandler {
+public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-
-        if (roles.contains("ROLE_NURSE")) {
-            httpServletResponse.sendRedirect("/nurse");
+        System.out.println(roles);
+        if (roles.contains("NURSE")) {
+            httpServletResponse.sendRedirect("/nurse/index");
         }
-        if (roles.contains("ROLE_DOCTOR")) {
-            httpServletResponse.sendRedirect("/doctor");
+        if (roles.contains("DOCTOR")) {
+            httpServletResponse.sendRedirect("/doctor/index");
         }
-        if (roles.contains("ROLE_PATIENT")) {
-            httpServletResponse.sendRedirect("/patient");
+        if (roles.contains("PATIENT")) {
+            httpServletResponse.sendRedirect("/patient/index");
         }
-
     }
+
 }

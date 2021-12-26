@@ -1,29 +1,25 @@
 package com.example.demo.connection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
+import com.example.demo.model.User;
+import com.example.demo.repository.DoctorRepository;
+
+import javax.xml.transform.Result;
+import java.sql.*;
 import java.util.logging.Logger;
 
 /**
- * Clasa care realizeaza conexiunea la baza de date. Contine numele driver-ului,
- * locatia bazei de date(DBURL), user-ul si parola pentru a accesa serverul
- * MYSQL
+ * In aceasta clasa se efectueaza conectarea bazei de date cu proiectul. de asemea se creaza o conexiune intre acestea
  */
 public class ConnectionFactory {
-
     private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DBURL = "jdbc:mysql://localhost:3306/proiect_is?useSSL=false&serverTimezone=UTC";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String DBURL = "jdbc:mysql://localhost:3306/ClinicaMedicala";
     private static final String USER = "root";
     private static final String PASS = "root";
 
     private static ConnectionFactory singleInstance = new ConnectionFactory();
 
-    private ConnectionFactory() {
+    public ConnectionFactory() {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
@@ -35,10 +31,10 @@ public class ConnectionFactory {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DBURL, USER, PASS);
-        } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, "An error occured while trying to connect to the database");
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+        //----------------
         return connection;
     }
 
@@ -50,8 +46,8 @@ public class ConnectionFactory {
         if (connection != null) {
             try {
                 connection.close();
-            } catch (SQLException e) {
-                LOGGER.log(Level.WARNING, "An error occured while trying to close the connection");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
         }
     }
@@ -60,19 +56,50 @@ public class ConnectionFactory {
         if (statement != null) {
             try {
                 statement.close();
-            } catch (SQLException e) {
-                LOGGER.log(Level.WARNING, "An error occured while trying to close the statement");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
         }
+
     }
 
     public static void close(ResultSet resultSet) {
         if (resultSet != null) {
             try {
                 resultSet.close();
-            } catch (SQLException e) {
-                LOGGER.log(Level.WARNING, "An error occured while trying to close the ResultSet");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
         }
     }
+
+//    public static void main(String[] args) {
+//        ConnectionFactory connectionFactory = new ConnectionFactory();
+//        try {
+//            connectionFactory.createConnection();
+//        } catch (Exception exception) {
+//            System.out.printf("NU");
+//        }
+//        DoctorRepository dc = new DoctorRepository();
+//        try {
+//
+////            dc.addPatient(new User(1, "Constantin", "Senila", "cevaacolo", "parola", "emailAcolo@ceva.com", "patient", null, null, "0787340611"));
+//            dc.deletePatient(1);
+//            ResultSet rs=dc.showPatients();
+//            while(rs.next()){
+//                //Retrieve by column name
+//                String id = rs.getString("id");
+//                String nume = rs.getString("firstName");
+//                String prenume = rs.getString("lastName");
+//
+//                String s = id + "  " + nume + " " + prenume;
+//                System.out.println(s);
+//            }
+////            String nume=rs.getString("firstName");
+////            System.out.println(nume);
+//        }catch(Exception exception){
+//            System.out.println("ceva nu meie");
+//        }
+//    }
+
 }

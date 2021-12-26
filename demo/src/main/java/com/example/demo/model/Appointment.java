@@ -1,20 +1,29 @@
 package com.example.demo.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class Appointment {
 
     private int id;
-    private int patientId;
-    private int doctorId;
-    private Date date;
+    private String usernameDoctor;
+    private String usernamePatient;
+    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date date;
 
-    public Appointment(int id, int patientId, int doctorId, Date date) {
+    public Appointment(int id, String usernamePatient, String usernameDoctor, String date) {
         this.id = id;
-        this.patientId = patientId;
-        this.doctorId = doctorId;
-        this.date = date;
+        this.usernameDoctor = usernameDoctor;
+        this.usernamePatient = usernamePatient;
+        try {
+            this.date = dt.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
+
 
     public int getId() {
         return id;
@@ -24,20 +33,20 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public String getUsernameDoctor() {
+        return usernameDoctor;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setUsernameDoctor(String usernameDoctor) {
+        this.usernameDoctor = usernameDoctor;
     }
 
-    public int getDoctorId() {
-        return doctorId;
+    public String getUsernamePatient() {
+        return usernamePatient;
     }
 
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
+    public void setUsernamePatient(String usernamePatient) {
+        this.usernamePatient = usernamePatient;
     }
 
     public Date getDate() {
@@ -46,5 +55,15 @@ public class Appointment {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", usernameDoctor='" + usernameDoctor + '\'' +
+                ", usernamePatient='" + usernamePatient + '\'' +
+                ", date=" + dt.format(date) +
+                '}';
     }
 }
