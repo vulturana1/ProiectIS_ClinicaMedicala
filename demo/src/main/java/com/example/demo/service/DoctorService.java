@@ -23,6 +23,10 @@ public class DoctorService {
         return doctorRepository.addPatient(user);
     }
 
+    public boolean addNurse(User user) {
+        return doctorRepository.addNurse(user);
+    }
+
     public void addRecipe(Recipe recipe) {
         doctorRepository.addRecipe(recipe);
     }
@@ -33,6 +37,10 @@ public class DoctorService {
 
     public void deletePatient(String username) {
         doctorRepository.deletePatient(username);
+    }
+
+    public void deleteNurse(String username) {
+        doctorRepository.deleteNurse(username);
     }
 
     public ArrayList<User> showPatients() {
@@ -101,5 +109,39 @@ public class DoctorService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Recipe findRecipe(int id) {
+        ResultSet rs = doctorRepository.findRecipe(id);
+        Recipe recipe = new Recipe();
+        try {
+            while (rs.next()) {
+                String usernameDoctor = rs.getString("usernameDoctor");
+                String usernamePatient = rs.getString("usernamePatient");
+                String listOfDrugs = rs.getString("listOfDrugs");
+                recipe.setUsernameDoctor(usernameDoctor);
+                recipe.setUsernamePatient(usernamePatient);
+                recipe.setListOfDrugs(listOfDrugs);
+                recipe.setId(id);
+                return recipe;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> notifyDoctor(String username) {
+        ResultSet rs = doctorRepository.notifyDoctor(username);
+        ArrayList<String> showNotify = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                String message = rs.getString("message");
+                showNotify.add(message);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return showNotify;
     }
 }

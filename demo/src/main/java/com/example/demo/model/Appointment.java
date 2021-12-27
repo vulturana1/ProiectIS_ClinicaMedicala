@@ -24,6 +24,9 @@ public class Appointment {
         }
     }
 
+    public Appointment(){
+
+    }
 
     public int getId() {
         return id;

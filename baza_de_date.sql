@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS user (
     username VARCHAR(45) NOT NULL UNIQUE,
     password VARCHAR(45) NOT NULL,
     role VARCHAR(45) NOT NULL,
-    enabled  bit(1) DEFAULT NULL,
+    enabled  bit(1) DEFAULT b'1',
     phoneNumber varchar(10) 
 );
 

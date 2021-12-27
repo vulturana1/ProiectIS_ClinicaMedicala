@@ -2,7 +2,6 @@ package com.example.demo.repository;
 
 import com.example.demo.connection.ConnectionFactory;
 import com.example.demo.model.Appointment;
-import com.example.demo.model.Recipe;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -97,4 +96,28 @@ public class PatientRepository {
         }
         return null;
     }
+
+    private String createSelectQueryForDoctors() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT ");
+        sb.append(" * ");
+        sb.append(" FROM ");
+        sb.append("user WHERE role = 'DOCTOR'");
+        return sb.toString();
+    }
+
+    public ResultSet showDoctors() {
+        Connection connection = ConnectionFactory.getConnection();
+        String rezSelect = createSelectQueryForDoctors();
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(rezSelect);
+            ResultSet rs = statement.getResultSet();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -13,6 +13,7 @@ public class DoctorRepository {
 
     private static final String insertStatementString = "INSERT INTO user (firstName, lastName, username, password, role, phoneNumber)" + " VALUES (?,?,?,?,?,?)";
     private static final String findDoctorStatementString = "SELECT * FROM user WHERE username = ?";
+    private static final String findRecipeStatementString = "SELECT * FROM recipe WHERE id = ?";
 
     public boolean addPatient(User user) {
         Connection dbConnection = ConnectionFactory.getConnection();
@@ -27,6 +28,35 @@ public class DoctorRepository {
                 insertStatement.setString(3, user.getUsername());
                 insertStatement.setString(4, user.getPassword());
                 insertStatement.setString(5, "PATIENT");
+                insertStatement.setString(6, user.getPhoneNumber());
+                insertStatement.executeUpdate();
+            } else{
+                System.out.println("nu se poate adauga pt ca este deja unu!");///pe interfata
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionFactory.close(insertStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+        return true;
+    }
+
+    public boolean addNurse(User user) {
+        Connection dbConnection = ConnectionFactory.getConnection();
+
+        PreparedStatement insertStatement = null;
+        int insertedId = -1;
+        try {
+            insertStatement = dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
+            if (verifyUsername(user.getUsername())) {
+                insertStatement.setString(1, user.getFirstName());
+                insertStatement.setString(2, user.getLastName());
+                insertStatement.setString(3, user.getUsername());
+                insertStatement.setString(4, user.getPassword());
+                insertStatement.setString(5, "NURSE");
                 insertStatement.setString(6, user.getPhoneNumber());
                 insertStatement.executeUpdate();
             } else{
@@ -90,6 +120,21 @@ public class DoctorRepository {
         }
     }
 
+    public ResultSet findRecipe(int id){
+        Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = connection.prepareStatement(findRecipeStatementString);
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private String createDeleteQuery() {
         StringBuilder sb = new StringBuilder();
         sb.append("Delete ");
@@ -105,6 +150,22 @@ public class DoctorRepository {
         String rezDelete = createDeleteQuery();
 
         //System.out.println(rezDelete);
+        try {
+            statement = connection.prepareStatement(rezDelete);
+            statement.setString(1, username);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionFactory.close(statement);
+            ConnectionFactory.close(connection);
+        }
+    }
+
+    public void deleteNurse(String username) {
+        Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement statement = null;
+        String rezDelete = createDeleteQuery();
         try {
             statement = connection.prepareStatement(rezDelete);
             statement.setString(1, username);
@@ -141,6 +202,31 @@ public class DoctorRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private String createNotifyDoctor() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT ");
+        sb.append(" message ");
+        sb.append(" FROM ");
+        sb.append("doctorNotify WHERE usernameDoctor = ?");
+        return sb.toString();
+    }
+
+    public ResultSet notifyDoctor(String username) {
+        Connection connection = ConnectionFactory.getConnection();
+        String rezSelect = createNotifyDoctor();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = connection.prepareStatement(rezSelect);
+            statement.setString(1, username);
+            rs = statement.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private String createSelectQueryForPatients() {

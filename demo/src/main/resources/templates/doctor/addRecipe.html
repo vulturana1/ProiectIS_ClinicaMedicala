@@ -72,16 +72,16 @@
         </li>
 
         <li class="nav-item  ">
-            <a class="nav-link " th:href="@{/doctor/deletePatient}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Delete Patient</span>
-            </a>
-        </li>
-
-        <li class="nav-item  ">
             <a class="nav-link " th:href="@{/doctor/showPatients}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Show Patients</span>
+            </a>
+        </li>
+
+        <li class="nav-item   ">
+            <a class="nav-link " th:href="@{/doctor/addNurse}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Add Nurse</span>
             </a>
         </li>
 
@@ -108,6 +108,14 @@
             </a>
         </li>
 
+        <li class="nav-item  ">
+            <a class="nav-link " th:href="@{/doctor/viewMessages}">
+
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Messages</span>
+            </a>
+        </li>
+
     </ul>
 
     <div id="content-wrapper">
@@ -119,13 +127,6 @@
                         <tr>
                         </tr>
 
-                        <tr>
-                            <td><br>
-                                <dt class="col-sm-3">Username Doctor:</dt>
-                            </td>
-                            <td><br><input type="text" th:field="*{usernameDoctor}" class="form-control" required=""
-                                           placeholder="Username Doctor"></td>
-                        </tr>
 
                         <tr>
                             <td><br><br>

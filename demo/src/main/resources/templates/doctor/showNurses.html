@@ -72,16 +72,16 @@
         </li>
 
         <li class="nav-item  ">
-            <a class="nav-link " th:href="@{/doctor/deletePatient}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Delete Patient</span>
-            </a>
-        </li>
-
-        <li class="nav-item  ">
             <a class="nav-link " th:href="@{/doctor/showPatients}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Show Patients</span>
+            </a>
+        </li>
+
+        <li class="nav-item   ">
+            <a class="nav-link " th:href="@{/doctor/addNurse}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Add Nurse</span>
             </a>
         </li>
 
@@ -108,6 +108,14 @@
             </a>
         </li>
 
+        <li class="nav-item  ">
+            <a class="nav-link " th:href="@{/doctor/viewMessages}">
+
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Messages</span>
+            </a>
+        </li>
+
     </ul>
 
     <div id="content-wrapper">
@@ -130,6 +138,7 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Phone Number</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -140,6 +149,7 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Phone Number</th>
+                                <th>Actions</th>
                             </tr>
                             <tbody>
                             <tr th:each="temp : ${user}">
@@ -150,6 +160,10 @@
                                 <td th:text="${temp.getUsername}"/>
                                 <td th:text="${temp.getRole}"/>
                                 <td th:text="${temp.getPhoneNumber}"/>
+                                <td>
+                                    <!--   <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button> -->
+                                    <a class="nav-link" th:href="@{/doctor/deleteNurse/{username}(username = ${temp.getUsername()})}" method="POST"><i class="far fa-trash-alt"></i></a>
+                                </td>
 
                             </tr>
 

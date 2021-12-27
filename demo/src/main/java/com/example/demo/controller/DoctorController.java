@@ -57,9 +57,38 @@ public class DoctorController {
         return "doctor/addPatient";
     }
 
-    @GetMapping("/addRecipe")
-    public String addRecipe(Model model) {
+    @GetMapping("/addNurse")
+    public String addNurse(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "doctor/addNurse";
+    }
 
+    @PostMapping("/addNurse")
+    public String submitAddNurse(@ModelAttribute("user") User user, BindingResult bindingResult, Model m) {
+        if (!bindingResult.hasErrors()) {
+            if (this.doctorService.addNurse(user) == true) {
+                m.addAttribute("message", "Successfully added...");
+            } else {
+                m.addAttribute("message", "An account with the same email already exists...");
+            }
+        }
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "doctor/addNurse";
+    }
+
+    @DeleteMapping("/deleteNurse/{username}")
+    public String deleteNurse(@PathVariable String username, Model model) {
+        model.addAttribute("username", username);
+        doctorService.deleteNurse(username);
+        ArrayList<User> list = doctorService.showPatients();
+        model.addAttribute("user", list);
+        return "redirect:/doctor/showNurses";
+    }
+
+    @GetMapping("/addRecipe")
+    public String addRecipe(Model model){
         Recipe recipe = new Recipe();
         model.addAttribute("recipe", recipe);
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
@@ -67,8 +96,10 @@ public class DoctorController {
     }
 
     @PostMapping("/addRecipe")
-    public String submitAddRecipe(@ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model m) {
+    public String submitAddRecipe(@ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model m, Authentication authentication) {
         if (!bindingResult.hasErrors()) {
+            String username = authentication.getName();
+            recipe.setUsernameDoctor(username);
             this.doctorService.addRecipe(recipe);
             m.addAttribute("message", "Successfully added...");
         }
@@ -76,14 +107,31 @@ public class DoctorController {
         return "doctor/addRecipe";
     }
 
-    @PutMapping("/updateRecipe/{id}")
-    public void updateRecipe(@RequestBody String listOfDrugs, @PathVariable int id) {
-        doctorService.updateRecipe(id, listOfDrugs);
+    @GetMapping("/updateRecipe")
+    public String updateRecipe(@RequestBody String listOfDrugs, @PathVariable int id, Model model) {
+        Recipe recipe = doctorService.findRecipe(id);
+        model.addAttribute("recipe", recipe);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "doctor/updateRecipe";
     }
 
-    @DeleteMapping("/deletePatient/{username}")
-    public void deletePatient(@PathVariable String username) {
+    @PutMapping("/updateRecipe/{id}")
+    public String submitUpdateRecipe(@RequestBody String listOfDrugs, @PathVariable int id, @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model m) {
+        if (!bindingResult.hasErrors()) {
+            this.doctorService.updateRecipe(id,listOfDrugs);
+            m.addAttribute("message", "Successfully updated...");
+        }
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "doctor/updateRecipe";
+    }
+
+    @GetMapping("/deletePatient/{username}")
+    public String deletePatient(@PathVariable String username, Model model) {
+        model.addAttribute("username", username);
         doctorService.deletePatient(username);
+        ArrayList<User> list = doctorService.showPatients();
+        model.addAttribute("user", list);
+        return "redirect:/doctor/showPatients";
     }
 
     @RequestMapping("/showPatients")
@@ -98,6 +146,11 @@ public class DoctorController {
         ArrayList<User> list = doctorService.showNurses();
         model.addAttribute("user", list);
         return "doctor/showNurses";
+    }
+
+    @GetMapping("/notifyDoctor/{username}")
+    public ArrayList<String> notifyDoctor(@PathVariable String username) {
+        return doctorService.notifyDoctor(username);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Appointment;
+import com.example.demo.model.Recipe;
+import com.example.demo.model.User;
 import com.example.demo.repository.NurseRepository;
 import com.example.demo.repository.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,9 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-    public ArrayList<String> showRecipe(String usernamePatient) {
+    public ArrayList<Recipe> showRecipe(String usernamePatient) {
         ResultSet rs = patientRepository.showRecipe(usernamePatient);
-        ArrayList<String> showR = new ArrayList<>();
+        ArrayList<Recipe> showR = new ArrayList<>();
         try {
             while (rs.next()) {
 
@@ -28,8 +30,9 @@ public class PatientService {
                 String usernameP = rs.getString("usernamePatient");
                 String listOfDrugs = rs.getString("listOfDrugs");
 
+                Recipe recipe = new Recipe(Integer.valueOf(id), usernameD, usernameP, listOfDrugs);
                 String s = id + "  " + usernameD + " " + usernameP + " --- Recipe: " + listOfDrugs;
-                showR.add(s);
+                showR.add(recipe);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,11 +44,32 @@ public class PatientService {
         patientRepository.addAppointment(appointment);
     }
 
-    public ArrayList<String> showDetails(String usernamePatient) {
-        ResultSet rs = patientRepository.showDetails(usernamePatient);
-        ArrayList<String> showD = new ArrayList<>();
+    public User showDetails(String username) {
+        ResultSet rs = patientRepository.showDetails(username);
+        User user = new User();
         try {
             while (rs.next()) {
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                String phoneNumber = rs.getString("phoneNumber");
+                user.setUsername(username);
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setPhoneNumber(phoneNumber);
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<User> showDoctors() {
+        ResultSet rs = patientRepository.showDoctors();
+        ArrayList<User> showP = new ArrayList<>();
+        try {
+            while (rs.next()) {
+
                 String id = rs.getString("id");
                 String nume = rs.getString("firstName");
                 String prenume = rs.getString("lastName");
@@ -54,12 +78,14 @@ public class PatientService {
                 String role = rs.getString("role");
                 String phoneNumber = rs.getString("phoneNumber");
 
-                String s = id + "  " + nume + " " + prenume + " " + username + " " + password + " " + role + " " + phoneNumber;
-                showD.add(s);
+                User user = new User(Integer.valueOf(id),nume,prenume,username,password,role,phoneNumber);
+                String s = id + "  " + nume + " " + prenume + " " + username+" "+ password + " " + role + " " + phoneNumber;
+                showP.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return showD;
+        return showP;
     }
+
 }

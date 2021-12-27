@@ -9,8 +9,9 @@ import java.sql.*;
 @Repository
 public class NurseRepository {
     private static final String insertStatementString = "INSERT INTO user (firstName, lastName, username, password, role, phoneNumber)" + " VALUES (?,?,?,?,?,?)";
+    private static final String findNurseStatementString = "SELECT * FROM user WHERE username = ?";
 
-    public void addPatient(User user) {
+    public boolean addPatient(User user) {
         Connection dbConnection = ConnectionFactory.getConnection();
 
         PreparedStatement insertStatement = null;
@@ -25,9 +26,10 @@ public class NurseRepository {
                 insertStatement.setString(5, user.getRole());
                 insertStatement.setString(6, user.getPhoneNumber());
                 insertStatement.executeUpdate();
-            } else
+            } else {
                 System.out.println("nu se poate adauga pt  ca este deja unu!");///pe interfata
-
+                return false;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,6 +37,7 @@ public class NurseRepository {
             ConnectionFactory.close(insertStatement);
             ConnectionFactory.close(dbConnection);
         }
+        return true;
     }
     private String createVerifyUsernameString() {
         StringBuilder sb = new StringBuilder();
@@ -105,6 +108,21 @@ public class NurseRepository {
             Statement statement = connection.createStatement();
             statement.execute(rezSelect);
             ResultSet rs = statement.getResultSet();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet findNurse(String username){
+        Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = connection.prepareStatement(findNurseStatementString);
+            statement.setString(1, username);
+            rs = statement.executeQuery();
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();

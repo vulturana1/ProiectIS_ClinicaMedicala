@@ -3,11 +3,15 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.service.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+
+import static java.lang.System.getProperty;
 
 @Controller
 @RequestMapping("/nurse")
@@ -21,23 +25,51 @@ public class NurseController {
     }
 
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, Authentication authentication) {
+        User user = new User();
+        String username = authentication.getName();
+        user = nurseService.findNurse(username);
+        model.addAttribute("user", user);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "nurse/index";
     }
 
+    @GetMapping("/addPatient")
+    public String addPatient(Model model) {
+
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "nurse/addPatient";
+    }
+
     @PostMapping("/addPatient")
-    public void addPatient(@RequestBody User user) {
-        nurseService.addPatient(user);
+    public String submitAddPatient(@ModelAttribute("user") User user, BindingResult bindingResult, Model m) {
+        if (!bindingResult.hasErrors()) {
+            if (this.nurseService.addPatient(user) == true) {
+                m.addAttribute("message", "Successfully added...");
+            } else {
+                m.addAttribute("message", "An account with the same email already exists...");
+            }
+        }
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "nurse/addPatient";
     }
 
-    @DeleteMapping("/deletePatient/{username}")
-    public void deletePatient(@PathVariable String username) {
+    @GetMapping("/deletePatient/{username}")
+    public String deletePatient(@PathVariable String username, Model model) {
+        model.addAttribute("username", username);
         nurseService.deletePatient(username);
+        ArrayList<User> list = nurseService.showPatients();
+        model.addAttribute("user", list);
+        return "redirect:/nurser/showPatients";
     }
 
-    @GetMapping("/showPatients")
-    public ArrayList<String> showPatients() {
-        return nurseService.showPatients();
+    @RequestMapping("/showPatients")
+    public String showPatients(Model model) {
+        ArrayList<User> list = nurseService.showPatients();
+        model.addAttribute("user", list);
+        return "nurse/showPatients";
     }
 
 }

@@ -16,17 +16,17 @@ public class NurseService {
     public NurseService(NurseRepository nurseRepository) {
         this.nurseRepository = nurseRepository;
     }
-    public void addPatient(User user) {
-        nurseRepository.addPatient(user);
+    public boolean addPatient(User user) {
+        return nurseRepository.addPatient(user);
     }
 
     public void deletePatient(String username) {
         nurseRepository.deletePatient(username);
     }
 
-    public ArrayList<String> showPatients() {
+    public ArrayList<User> showPatients() {
         ResultSet rs = nurseRepository.showPatients();
-        ArrayList<String> showP = new ArrayList<>();
+        ArrayList<User> showP = new ArrayList<>();
         try {
             while (rs.next()) {
                 String id = rs.getString("id");
@@ -36,13 +36,33 @@ public class NurseService {
                 String password = rs.getString("password");
                 String role = rs.getString("role");
                 String phoneNumber = rs.getString("phoneNumber");
-
+                User user = new User(Integer.valueOf(id),nume,prenume,username,password,role,phoneNumber);
                 String s = id + "  " + nume + " " + prenume + " " + username+" "+ password + " " + role + " " + phoneNumber;
-                showP.add(s);
+                showP.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return showP;
+    }
+
+    public User findNurse(String username) {
+        ResultSet rs = nurseRepository.findNurse(username);
+        User user = new User();
+        try {
+            while (rs.next()) {
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                String phoneNumber = rs.getString("phoneNumber");
+                user.setUsername(username);
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setPhoneNumber(phoneNumber);
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
