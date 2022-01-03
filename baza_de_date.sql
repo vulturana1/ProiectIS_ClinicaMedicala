@@ -31,9 +31,10 @@ CREATE TABLE IF NOT EXISTS doctorNotify (
 drop table if exists appointment;
 CREATE TABLE IF NOT EXISTS appointment (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
-	usernameDoctor VARCHAR(45) NOT NULL,
+	usernameDoctor VARCHAR(45) ,
     usernamePatient VARCHAR(45) NOT NULL,
-    date DateTime
+    date VARCHAR(45) NOT NULL,
+    time VARCHAR(45) NOT NULL
 );
 
 INSERT INTO clinicamedicala.user (firstName, lastName, username, password, role, enabled, phoneNumber) VALUES ('Ana', 'Vultur', 'ana@v', '12345', 'DOCTOR', b'1', '0741753590');

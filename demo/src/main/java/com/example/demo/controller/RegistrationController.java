@@ -24,7 +24,6 @@ public class RegistrationController {
     public String showRegistrationPage(Model model){
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "register";
     }
 
@@ -37,7 +36,6 @@ public class RegistrationController {
                 m.addAttribute("message", "An account with the same email already exists...");
             }
         }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "register";
     }
 }

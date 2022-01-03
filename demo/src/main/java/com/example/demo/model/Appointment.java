@@ -1,9 +1,6 @@
 package com.example.demo.model;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 public class Appointment {
 
@@ -11,20 +8,18 @@ public class Appointment {
     private String usernameDoctor;
     private String usernamePatient;
     SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    Date date;
+    private String date;
+    private String time;
 
-    public Appointment(int id, String usernamePatient, String usernameDoctor, String date) {
+    public Appointment(int id, String usernamePatient, String usernameDoctor, String date, String time) {
         this.id = id;
         this.usernameDoctor = usernameDoctor;
         this.usernamePatient = usernamePatient;
-        try {
-            this.date = dt.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        this.date = date;
+        this.time = time;
     }
 
-    public Appointment(){
+    public Appointment() {
 
     }
 
@@ -52,12 +47,20 @@ public class Appointment {
         this.usernamePatient = usernamePatient;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override
@@ -66,7 +69,7 @@ public class Appointment {
                 "id=" + id +
                 ", usernameDoctor='" + usernameDoctor + '\'' +
                 ", usernamePatient='" + usernamePatient + '\'' +
-                ", date=" + dt.format(date) +
+                ", date=" + date +
                 '}';
     }
 }

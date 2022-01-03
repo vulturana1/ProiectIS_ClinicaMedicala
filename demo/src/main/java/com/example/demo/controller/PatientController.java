@@ -35,46 +35,25 @@ public class PatientController {
         model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "patient/index";
     }
-/*
-    @GetMapping("/addAppointment")
-    public String addAppointment(Model model) {
-
-        Appointment appointment = new Appointment();
-        model.addAttribute("appointment", appointment);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
-        return "patient/addAppointment";
-    }
-
-    @PostMapping("/addAppointment")
-    public String submitaddAppointment(@ModelAttribute("appointment") Appointment appointment, BindingResult bindingResult, Model m) {
-        if (!bindingResult.hasErrors()) {
-            this.patientService.addAppointment(appointment);
-            m.addAttribute("message", "Successfully added...");
-        }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
-        return "patient/addAppointment";
-    }*/
 
     @GetMapping("/addAppointment")
     public String addAppointment(Model model){
-        ArrayList<User> list = patientService.showDoctors();
-        model.addAttribute("user", list);
+
         Appointment appointment = new Appointment();
         model.addAttribute("appointment", appointment);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "patient/addAppointment";
     }
 
     @PostMapping("/addAppointment")
-    public String makeAppointment(@ModelAttribute("appointment") Appointment appointment, Model m, BindingResult bindingResult) {
+    public String makeAppointment(@ModelAttribute("appointment") Appointment appointment, Model m, BindingResult bindingResult, Authentication authentication) {
+        String username = authentication.getName();
+        appointment.setUsernamePatient(username);
         if (!bindingResult.hasErrors()) {
             this.patientService.addAppointment(appointment);
             m.addAttribute("message", "Successfully added...");
         }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
-        return "addAppointment";
+        return "patient/addAppointment";
     }
-
 
     @GetMapping("/showRecipe")
     public String showRecipe(Model model, Authentication authentication){
@@ -82,6 +61,13 @@ public class PatientController {
         ArrayList<Recipe> list = patientService.showRecipe(username);
         model.addAttribute("receipe", list);
         return "patient/showRecipe";
+    }
+
+    @GetMapping("/viewDoctors")
+    public String viewDoctors(Model model){
+        ArrayList<User> list = patientService.showDoctors();
+        model.addAttribute("user", list);
+        return "patient/viewDoctors";
     }
 
 }

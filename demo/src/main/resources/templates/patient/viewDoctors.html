@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
@@ -88,57 +89,54 @@
     </ul>
 
     <div id="content-wrapper">
+
         <div class="container-fluid">
-            <div>
-                <form th:action="@{/patient/addAppointment}"
-                      th:object="${appointment}" method="POST">
-                    <table>
-                        <tr>
-                        </tr>
 
-
-                        <tr>
-                            <td><br><br>
-                                <dt class="col-sm-3">Username Doctor:</dt>
-                            </td>
-                            <td><br><input type="text" th:field="*{usernameDoctor}" required="" class="form-control"
-                                           placeholder="Username Doctor"></td>
-                        </tr>
-
-                        <tr>
-                            <td><br><br>
-                                <dt class="col-sm-3">Date(DD-MM-YYYY):</dt>
-                            </td>
-                            <td><br><input th:field="*{date}" class="form-control" required=""
-                                           placeholder="Date"/><br></td>
-                        </tr>
-
-                        <tr>
-                            <td><br><br>
-                                <dt class="col-sm-3">Time(HH:MM):</dt>
-                            </td>
-                            <td><br><input th:field="*{time}" class="form-control" required=""
-                                           placeholder="Time"/><br></td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2" align="center"><input class="btn btn-primary btn-lg" type="submit"
-                                                                  value="Add"></td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    View Doctors
                 </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
 
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+
+                                </tr>
+                                <tbody>
+                                <tr th:each="temp,stat: ${user}">
+
+                                    <td th:text="${temp.getId}"/>
+                                    <td th:text="${temp.getFirstName}"/>
+                                    <td th:text="${temp.getLastName}"/>
+                                    <td th:text="${temp.getUsername}" />
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
             </div>
+
+
         </div>
         <!-- /.content-wrapper -->
+
     </div>
 
     <!-- Scroll to Top Button-->
@@ -194,3 +192,7 @@
 </body>
 
 </html>
+
+
+
+

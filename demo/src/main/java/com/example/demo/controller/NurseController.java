@@ -39,7 +39,6 @@ public class NurseController {
 
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "nurse/addPatient";
     }
 
@@ -52,7 +51,6 @@ public class NurseController {
                 m.addAttribute("message", "An account with the same email already exists...");
             }
         }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "nurse/addPatient";
     }
 

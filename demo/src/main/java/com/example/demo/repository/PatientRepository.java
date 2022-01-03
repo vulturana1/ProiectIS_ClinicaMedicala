@@ -5,6 +5,7 @@ import com.example.demo.model.Appointment;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 @Repository
@@ -34,17 +35,18 @@ public class PatientRepository {
         return null;
     }
 
-    private static final String insertAppointment = "INSERT INTO appointment (usernameDoctor, usernamePatient, date)" + " VALUES (?,?,?)";
+    private static final String insertAppointment = "INSERT INTO appointment (usernameDoctor, usernamePatient, date, time)" + " VALUES (?,?,?,?)";
 
     public void addAppointment(Appointment appointment) {
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement insertStatement = null;
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         try {
             insertStatement = dbConnection.prepareStatement(insertAppointment, Statement.RETURN_GENERATED_KEYS);
             insertStatement.setString(1, appointment.getUsernameDoctor());
             insertStatement.setString(2, appointment.getUsernamePatient());
-            insertStatement.setString(3, dt.format(appointment.getDate()));
+            insertStatement.setString(3, appointment.getDate());
+            insertStatement.setString(4, appointment.getTime());
             insertStatement.executeUpdate();
             insertDoctorNotify(dbConnection, appointment);
 

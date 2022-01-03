@@ -40,7 +40,6 @@ public class DoctorController {
 
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "doctor/addPatient";
     }
 
@@ -53,7 +52,6 @@ public class DoctorController {
                 m.addAttribute("message", "An account with the same email already exists...");
             }
         }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "doctor/addPatient";
     }
 
@@ -61,7 +59,6 @@ public class DoctorController {
     public String addNurse(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "doctor/addNurse";
     }
 
@@ -74,7 +71,6 @@ public class DoctorController {
                 m.addAttribute("message", "An account with the same email already exists...");
             }
         }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "doctor/addNurse";
     }
 
@@ -91,7 +87,6 @@ public class DoctorController {
     public String addRecipe(Model model){
         Recipe recipe = new Recipe();
         model.addAttribute("recipe", recipe);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "doctor/addRecipe";
     }
 
@@ -103,7 +98,6 @@ public class DoctorController {
             this.doctorService.addRecipe(recipe);
             m.addAttribute("message", "Successfully added...");
         }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "doctor/addRecipe";
     }
 
