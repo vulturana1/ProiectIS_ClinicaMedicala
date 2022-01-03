@@ -100,6 +100,14 @@
             </a>
         </li>
 
+        <li class="nav-item ">
+            <a class="nav-link " th:href="@{/doctor/showRecipes}">
+
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Show Recipes</span>
+            </a>
+        </li>
+
         <li class="nav-item  ">
             <a class="nav-link " th:href="@{/doctor/updateRecipe}">
 
@@ -155,7 +163,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <small class="text-success" th:if="${message}" th:text="${message}">Created...</small>
+                    <small class="text-success" th:if="${message}" th:text="${message}">Recipe updated...</small>
                 </div>
 
             </div>

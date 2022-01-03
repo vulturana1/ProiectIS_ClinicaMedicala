@@ -5,7 +5,6 @@ import com.example.demo.model.User;
 import com.example.demo.repository.DoctorRepository;
 import org.springframework.stereotype.Service;
 
-import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -65,6 +64,27 @@ public class DoctorService {
             e.printStackTrace();
         }
         return showP;
+    }
+
+    public ArrayList<Recipe> showRecipes(String usernameDoctor) {
+        ResultSet rs = doctorRepository.showRecipe(usernameDoctor);
+        ArrayList<Recipe> showR = new ArrayList<>();
+        try {
+            while (rs.next()) {
+
+                String id = rs.getString("id");
+                String usernameD = rs.getString("usernameDoctor");
+                String usernameP = rs.getString("usernamePatient");
+                String listOfDrugs = rs.getString("listOfDrugs");
+
+                Recipe recipe = new Recipe(Integer.valueOf(id), usernameD, usernameP, listOfDrugs);
+
+                showR.add(recipe);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return showR;
     }
 
     public ArrayList<User> showNurses() {

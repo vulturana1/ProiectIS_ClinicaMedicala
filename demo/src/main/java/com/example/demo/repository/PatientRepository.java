@@ -26,8 +26,6 @@ public class PatientRepository {
         try {
             statement = connection.prepareStatement(rezSelect);
             statement.setString(1, usernamePatient);
-//            System.out.println(statement);
-//            statement.execute(rezSelect);
             ResultSet rs = statement.executeQuery();
             return rs;
         } catch (SQLException e) {
@@ -88,7 +86,6 @@ public class PatientRepository {
         try {
             statement = connection.prepareStatement(rezSelect, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, username);
-//            statement.execute(rezSelect);
             ResultSet rs = statement.executeQuery();
             return rs;
         } catch (SQLException e) {

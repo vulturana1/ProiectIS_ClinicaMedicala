@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.model.User;
-import com.example.demo.repository.DoctorRepository;
 import com.example.demo.repository.NurseRepository;
 import org.springframework.stereotype.Service;
 

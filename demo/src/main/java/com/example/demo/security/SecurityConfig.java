@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 
-
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -46,9 +45,6 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/doctor/**").hasRole("DOCTOR")
-                //.antMatchers("/nurse/**").hasRole("NURSE")
-                //.antMatchers("/patient/**").hasRole("PATIENT")
                 .antMatchers("/register").permitAll()
                 .antMatchers("/confirm").permitAll()
                 .antMatchers("/login/**").permitAll()
@@ -66,8 +62,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .successHandler(successHandler)
                 .and()
                 .logout().permitAll();
-        //.and()
-        //.exceptionHandling().accessDeniedPage("/register");
+
     }
 
     @Override
@@ -75,8 +70,6 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         web.ignoring().antMatchers("/resources/**", "/login/**", "/static/**", "/Script/**", "/Style/**", "/Icon/**",
                 "/js/**", "/vendor/**", "/bootstrap/**", "/Image/**");
-
-        //logoutSuccessUrl("/customLogout")
     }
 
     @Bean

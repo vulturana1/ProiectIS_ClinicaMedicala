@@ -245,17 +245,6 @@ public class DoctorRepository {
             Statement statement = connection.createStatement();
             statement.execute(rezSelect);
             ResultSet rs = statement.getResultSet();
-//            while(rs.next()){
-//                //Retrieve by column name
-//                String id = rs.getString("id");
-//                String nume = rs.getString("firstName");
-//                String prenume = rs.getString("lastName");
-//
-//                String s = id + "  " + nume + " " + prenume;
-//                System.out.println(s);
-//            }
-
-
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -286,29 +275,6 @@ public class DoctorRepository {
         return null;
     }
 
-//    private String updateQuery() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("update ");
-//        sb.append("user" + " set ");
-//        sb.append(" where id = ?");
-//        return sb.toString();
-//    }
-//
-//    public void updateDrugsRecipe(int id, String drugsRecipe) {
-//        Connection connection = ConnectionFactory.getConnection();
-//        PreparedStatement statement = null;
-//        try {
-//            statement = connection.prepareStatement(updateQuery());
-//            statement.setString(1, String.valueOf(id));
-//            statement.executeUpdate();
-//        } catch (SQLException e) {
-////            LOGGER.log(Level.WARNING, type.getSimpleName()+"Dao (edit): " + e.getMessage());
-//        } finally {
-//            ConnectionFactory.close(statement);
-//            ConnectionFactory.close(connection);
-//        }
-//    }
-
     public ResultSet findDoctor(String username){
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement statement = null;
@@ -317,6 +283,30 @@ public class DoctorRepository {
             statement = connection.prepareStatement(findDoctorStatementString);
             statement.setString(1, username);
             rs = statement.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String createSelectQueryForRecipe() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT ");
+        sb.append("*");
+        sb.append(" FROM ");
+        sb.append("recipe WHERE usernameDoctor = ?");
+        return sb.toString();
+    }
+
+    public ResultSet showRecipe(String usernameDoctor) {
+        Connection connection = ConnectionFactory.getConnection();
+        String rezSelect = createSelectQueryForRecipe();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(rezSelect);
+            statement.setString(1, usernameDoctor);
+            ResultSet rs = statement.executeQuery();
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();

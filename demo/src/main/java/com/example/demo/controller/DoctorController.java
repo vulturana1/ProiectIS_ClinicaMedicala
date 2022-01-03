@@ -107,24 +107,6 @@ public class DoctorController {
         return "doctor/addRecipe";
     }
 
-    @GetMapping("/updateRecipe")
-    public String updateRecipe(@RequestBody String listOfDrugs, @PathVariable int id, Model model) {
-        Recipe recipe = doctorService.findRecipe(id);
-        model.addAttribute("recipe", recipe);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
-        return "doctor/updateRecipe";
-    }
-
-    @PutMapping("/updateRecipe/{id}")
-    public String submitUpdateRecipe(@RequestBody String listOfDrugs, @PathVariable int id, @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model m) {
-        if (!bindingResult.hasErrors()) {
-            this.doctorService.updateRecipe(id,listOfDrugs);
-            m.addAttribute("message", "Successfully updated...");
-        }
-        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
-        return "doctor/updateRecipe";
-    }
-
     @GetMapping("/deletePatient/{username}")
     public String deletePatient(@PathVariable String username, Model model) {
         model.addAttribute("username", username);
@@ -148,9 +130,38 @@ public class DoctorController {
         return "doctor/showNurses";
     }
 
-    @GetMapping("/notifyDoctor/{username}")
-    public ArrayList<String> notifyDoctor(@PathVariable String username) {
-        return doctorService.notifyDoctor(username);
+    @RequestMapping("/showRecipes")
+    public String showRecipes(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        ArrayList<Recipe> list = doctorService.showRecipes(username);
+        model.addAttribute("recipe", list);
+        return "doctor/showRecipes";
+    }
+
+    @GetMapping("/updateRecipe")
+    public String updateRecipe(Model model) {
+        Recipe recipe = new Recipe();
+        model.addAttribute("recipe", recipe);
+        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "doctor/updateRecipe";
+    }
+
+    @PostMapping("/updateRecipe")
+    public String submitUpdateRecipe(@ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model m) {
+        if (!bindingResult.hasErrors()) {
+            this.doctorService.updateRecipe(recipe.getId(),recipe.getListOfDrugs());
+            m.addAttribute("message", "Successfully updated...");
+        }
+        m.addAttribute("mapsApiKey", getProperty("mapsKey"));
+        return "doctor/updateRecipe";
+    }
+
+    @GetMapping("/viewMessages")
+    public String notifyDoctor(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        ArrayList<String> list = doctorService.notifyDoctor(username);
+        model.addAttribute("mesaj", list);
+        return "doctor/viewMessages";
     }
 
 }
