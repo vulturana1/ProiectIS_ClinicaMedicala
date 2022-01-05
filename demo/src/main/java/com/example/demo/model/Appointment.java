@@ -65,11 +65,6 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", usernameDoctor='" + usernameDoctor + '\'' +
-                ", usernamePatient='" + usernamePatient + '\'' +
-                ", date=" + date +
-                '}';
+        return "Programare in data de " + this.date + " la ora " + this.time + " pentru pacientul " + this.usernamePatient;
     }
 }

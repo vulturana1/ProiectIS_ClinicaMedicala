@@ -1,19 +1,26 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Appointment;
+import com.example.demo.model.AppointmentEvent;
 import com.example.demo.model.Recipe;
 import com.example.demo.model.User;
-import com.example.demo.repository.NurseRepository;
 import com.example.demo.repository.PatientRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
 
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
@@ -41,6 +48,8 @@ public class PatientService {
     }
 
     public void addAppointment(Appointment appointment) {
+        patientRepository.insertDoctorNotify(appointment);
+        applicationEventPublisher.publishEvent(new AppointmentEvent(this, appointment));
         patientRepository.addAppointment(appointment);
     }
 
@@ -86,6 +95,27 @@ public class PatientService {
             e.printStackTrace();
         }
         return showP;
+    }
+
+    public ArrayList<Appointment> showAppointments(String usernamePatient) {
+        ResultSet rs = patientRepository.showAppointments(usernamePatient);
+        ArrayList<Appointment> showA = new ArrayList<>();
+        try {
+            while (rs.next()) {
+
+                String id = rs.getString("id");
+                String usernameD = rs.getString("usernameDoctor");
+                String usernameP = rs.getString("usernamePatient");
+                String date = rs.getString("date");
+                String time = rs.getString("time");
+
+                Appointment appointment = new Appointment(Integer.valueOf(id), usernameP, usernameD, date, time);
+                showA.add(appointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return showA;
     }
 
 }

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.example.demo.controller.DoctorController</OriginalElement>
+  <nodes>
+    <node x="418.1144927536235" y="814.0">com.example.demo.controller.DoctorController</node>
+    <node x="311.68913043478256" y="251.0">com.example.demo.model.Recipe</node>
+    <node x="865.25" y="814.0">com.example.demo.controller.NurseController</node>
+    <node x="1178.3228260869569" y="553.0">com.example.demo.repository.UserRepository</node>
+    <node x="899.1978260869569" y="542.0">com.example.demo.repository.NurseRepository</node>
+    <node x="1142.1978260869569" y="696.0">com.example.demo.service.UserService</node>
+    <node x="285.03115942029007" y="0.0">com.example.demo.model.Appointment</node>
+    <node x="0.0" y="273.0">com.example.demo.repository.PatientRepository</node>
+    <node x="585.0311594202901" y="520.0">com.example.demo.repository.DoctorRepository</node>
+    <node x="1137.4166666666667" y="814.0">com.example.demo.controller.RegistrationController</node>
+    <node x="211.03115942029007" y="553.0">com.example.demo.service.PatientService</node>
+    <node x="304.91666666666663" y="696.0">com.example.demo.controller.PatientController</node>
+    <node x="900.1978260869568" y="218.0">com.example.demo.model.User</node>
+    <node x="552.7916666666666" y="696.0">com.example.demo.service.DoctorService</node>
+    <node x="663.0311594202901" y="251.0">com.example.demo.controller.LoginController</node>
+    <node x="864.4391304347826" y="696.0">com.example.demo.service.NurseService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.demo.repository.PatientRepository" target="com.example.demo.model.Appointment" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.0" />
+      <point x="92.0" y="197.0" />
+      <point x="168.18913043478256" y="197.0" />
+      <point x="168.18913043478256" y="187.0" />
+      <point x="328.03115942029007" y="187.0" />
+      <point x="-43.0" y="83.0" />
+    </edge>
+    <edge source="com.example.demo.service.UserService" target="com.example.demo.repository.UserRepository" relationship="DEPENDENCY">
+      <point x="-52.75" y="-28.0" />
+      <point x="1194.9478260869569" y="674.0" />
+      <point x="1248.7043478260869" y="674.0" />
+      <point x="1248.7043478260869" y="664.0" />
+      <point x="1228.0728260869569" y="664.0" />
+      <point x="-49.75" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.controller.PatientController" target="com.example.demo.model.Recipe" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="406.41666666666663" y="674.0" />
+      <point x="410.82934782608675" y="674.0" />
+      <point x="410.82934782608675" y="664.0" />
+      <point x="462.53115942029007" y="664.0" />
+      <point x="462.53115942029007" y="428.0" />
+      <point x="440.68913043478256" y="428.0" />
+      <point x="43.0" y="61.0" />
+    </edge>
+    <edge source="com.example.demo.controller.DoctorController" target="com.example.demo.model.Recipe" relationship="CREATE">
+      <point x="-1.4210854715202004E-14" y="-28.0" />
+      <point x="518.1144927536235" y="793.0" />
+      <point x="539.8293478260867" y="793.0" />
+      <point x="539.8293478260867" y="773.0" />
+      <point x="200.53115942029012" y="773.0" />
+      <point x="200.53115942029012" y="488.0" />
+      <point x="410.1057971014492" y="488.0" />
+      <point x="410.1057971014492" y="438.0" />
+      <point x="354.68913043478256" y="438.0" />
+      <point x="-43.0" y="61.0" />
+    </edge>
+    <edge source="com.example.demo.controller.PatientController" target="com.example.demo.model.Appointment" relationship="CREATE">
+      <point x="67.66666666666669" y="-28.0" />
+      <point x="474.0833333333333" y="674.0" />
+      <point x="546.3293478260867" y="674.0" />
+      <point x="546.3293478260867" y="197.0" />
+      <point x="414.03115942029007" y="197.0" />
+      <point x="43.0" y="83.0" />
+    </edge>
+    <edge source="com.example.demo.service.NurseService" target="com.example.demo.repository.NurseRepository" relationship="TO_ONE">
+      <point x="1.1368683772161603E-13" y="-28.0" />
+      <point x="976.9391304347827" y="674.0" />
+      <point x="954.4478260869569" y="674.0" />
+      <point x="-55.25" y="39.0" />
+    </edge>
+    <edge source="com.example.demo.controller.DoctorController" target="com.example.demo.service.DoctorService" relationship="DEPENDENCY">
+      <point x="66.66666666666667" y="-28.0" />
+      <point x="584.7811594202901" y="793.0" />
+      <point x="731.2916666666666" y="793.0" />
+      <point x="59.5" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.service.PatientService" target="com.example.demo.model.User" relationship="CREATE">
+      <point x="80.33333333333326" y="-28.0" />
+      <point x="411.8644927536233" y="498.0" />
+      <point x="410.1057971014492" y="498.0" />
+      <point x="410.1057971014492" y="448.0" />
+      <point x="823.5311594202901" y="448.0" />
+      <point x="823.5311594202901" y="438.0" />
+      <point x="940.4478260869568" y="438.0" />
+      <point x="-40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.service.DoctorService" target="com.example.demo.repository.DoctorRepository" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="671.7916666666666" y="674.0" />
+      <point x="642.0311594202901" y="674.0" />
+      <point x="-57.0" y="61.0" />
+    </edge>
+    <edge source="com.example.demo.repository.DoctorRepository" target="com.example.demo.model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-61.0" />
+      <point x="699.0311594202901" y="458.0" />
+      <point x="1075.6978260869569" y="458.0" />
+      <point x="1075.6978260869569" y="448.0" />
+      <point x="1020.9478260869568" y="448.0" />
+      <point x="40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.service.PatientService" target="com.example.demo.repository.PatientRepository" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="331.53115942029007" y="498.0" />
+      <point x="168.18913043478256" y="498.0" />
+      <point x="168.18913043478256" y="468.0" />
+      <point x="138.0" y="468.0" />
+      <point x="46.0" y="39.0" />
+    </edge>
+    <edge source="com.example.demo.service.UserService" target="com.example.demo.model.User" relationship="DEPENDENCY">
+      <point x="-52.75" y="-28.0" />
+      <point x="1194.9478260869569" y="674.0" />
+      <point x="1248.7043478260869" y="674.0" />
+      <point x="1248.7043478260869" y="664.0" />
+      <point x="1167.8228260869569" y="664.0" />
+      <point x="1167.8228260869569" y="468.0" />
+      <point x="1075.6978260869569" y="468.0" />
+      <point x="1075.6978260869569" y="448.0" />
+      <point x="1020.9478260869568" y="448.0" />
+      <point x="40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.repository.DoctorRepository" target="com.example.demo.model.Recipe" relationship="DEPENDENCY">
+      <point x="0.0" y="-61.0" />
+      <point x="699.0311594202901" y="438.0" />
+      <point x="462.53115942029007" y="438.0" />
+      <point x="462.53115942029007" y="428.0" />
+      <point x="440.68913043478256" y="428.0" />
+      <point x="43.0" y="61.0" />
+    </edge>
+    <edge source="com.example.demo.service.PatientService" target="com.example.demo.model.Recipe" relationship="CREATE">
+      <point x="80.33333333333326" y="-28.0" />
+      <point x="411.8644927536233" y="498.0" />
+      <point x="410.1057971014492" y="498.0" />
+      <point x="410.1057971014492" y="438.0" />
+      <point x="354.68913043478256" y="438.0" />
+      <point x="-43.0" y="61.0" />
+    </edge>
+    <edge source="com.example.demo.service.NurseService" target="com.example.demo.repository.NurseRepository" relationship="DEPENDENCY">
+      <point x="75.00000000000011" y="-28.0" />
+      <point x="1051.9391304347828" y="674.0" />
+      <point x="1064.9478260869569" y="674.0" />
+      <point x="55.25" y="39.0" />
+    </edge>
+    <edge source="com.example.demo.controller.RegistrationController" target="com.example.demo.service.UserService" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="1232.9166666666667" y="793.0" />
+      <point x="1194.9478260869569" y="793.0" />
+      <point x="-52.75" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.controller.PatientController" target="com.example.demo.model.User" relationship="CREATE">
+      <point x="67.66666666666669" y="-28.0" />
+      <point x="474.0833333333333" y="674.0" />
+      <point x="546.3293478260867" y="674.0" />
+      <point x="546.3293478260867" y="664.0" />
+      <point x="559.2771739130435" y="664.0" />
+      <point x="559.2771739130435" y="478.0" />
+      <point x="823.53115942029" y="478.0" />
+      <point x="823.5311594202901" y="438.0" />
+      <point x="940.4478260869568" y="438.0" />
+      <point x="-40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.controller.DoctorController" target="com.example.demo.model.User" relationship="CREATE">
+      <point x="-1.4210854715202004E-14" y="-28.0" />
+      <point x="518.1144927536235" y="793.0" />
+      <point x="539.8293478260867" y="793.0" />
+      <point x="539.8293478260867" y="773.0" />
+      <point x="823.53115942029" y="773.0" />
+      <point x="823.5311594202901" y="438.0" />
+      <point x="940.4478260869568" y="438.0" />
+      <point x="-40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.controller.NurseController" target="com.example.demo.service.NurseService" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="958.25" y="793.0" />
+      <point x="920.6891304347826" y="793.0" />
+      <point x="-56.25" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.controller.NurseController" target="com.example.demo.model.User" relationship="CREATE">
+      <point x="-62.0" y="-28.0" />
+      <point x="896.25" y="793.0" />
+      <point x="853.8228260869568" y="793.0" />
+      <point x="853.8228260869568" y="478.0" />
+      <point x="823.5311594202901" y="478.0" />
+      <point x="823.5311594202901" y="438.0" />
+      <point x="940.4478260869568" y="438.0" />
+      <point x="-40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.service.PatientService" target="com.example.demo.repository.PatientRepository" relationship="TO_ONE">
+      <point x="-80.33333333333326" y="-28.0" />
+      <point x="251.1978260869568" y="478.0" />
+      <point x="46.0" y="478.0" />
+      <point x="-46.0" y="39.0" />
+    </edge>
+    <edge source="com.example.demo.controller.RegistrationController" target="com.example.demo.service.UserService" relationship="TO_ONE">
+      <point x="63.66666666666674" y="-28.0" />
+      <point x="1296.5833333333335" y="793.0" />
+      <point x="1300.4478260869569" y="793.0" />
+      <point x="52.75" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.service.DoctorService" target="com.example.demo.model.User" relationship="CREATE">
+      <point x="-79.33333333333326" y="-28.0" />
+      <point x="592.4583333333334" y="674.0" />
+      <point x="574.5311594202901" y="674.0" />
+      <point x="574.5311594202901" y="478.0" />
+      <point x="823.5311594202901" y="478.0" />
+      <point x="823.5311594202901" y="438.0" />
+      <point x="940.4478260869568" y="438.0" />
+      <point x="-40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.service.NurseService" target="com.example.demo.model.User" relationship="CREATE">
+      <point x="-74.99999999999989" y="-28.0" />
+      <point x="901.9391304347827" y="674.0" />
+      <point x="882.375" y="674.0" />
+      <point x="882.375" y="478.0" />
+      <point x="823.5311594202901" y="478.0" />
+      <point x="823.5311594202901" y="438.0" />
+      <point x="940.4478260869568" y="438.0" />
+      <point x="-40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.repository.UserRepository" target="com.example.demo.model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="1277.8228260869569" y="468.0" />
+      <point x="1075.6978260869569" y="468.0" />
+      <point x="1075.6978260869569" y="448.0" />
+      <point x="1020.9478260869568" y="448.0" />
+      <point x="40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.controller.DoctorController" target="com.example.demo.service.DoctorService" relationship="TO_ONE">
+      <point x="-66.66666666666669" y="-28.0" />
+      <point x="451.4478260869568" y="783.0" />
+      <point x="612.2916666666666" y="783.0" />
+      <point x="-59.5" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.service.DoctorService" target="com.example.demo.model.Recipe" relationship="CREATE">
+      <point x="-79.33333333333326" y="-28.0" />
+      <point x="592.4583333333334" y="674.0" />
+      <point x="574.5311594202901" y="674.0" />
+      <point x="574.5311594202901" y="488.0" />
+      <point x="410.1057971014492" y="488.0" />
+      <point x="410.1057971014492" y="438.0" />
+      <point x="354.68913043478256" y="438.0" />
+      <point x="-43.0" y="61.0" />
+    </edge>
+    <edge source="com.example.demo.repository.NurseRepository" target="com.example.demo.model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.0" />
+      <point x="1009.6978260869569" y="468.0" />
+      <point x="1075.6978260869569" y="468.0" />
+      <point x="1075.6978260869569" y="448.0" />
+      <point x="1020.9478260869568" y="448.0" />
+      <point x="40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.service.DoctorService" target="com.example.demo.repository.DoctorRepository" relationship="TO_ONE">
+      <point x="79.33333333333337" y="-28.0" />
+      <point x="751.125" y="674.0" />
+      <point x="756.0311594202901" y="674.0" />
+      <point x="57.0" y="61.0" />
+    </edge>
+    <edge source="com.example.demo.service.PatientService" target="com.example.demo.model.Appointment" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="331.53115942029007" y="498.0" />
+      <point x="168.18913043478256" y="498.0" />
+      <point x="168.18913043478256" y="468.0" />
+      <point x="194.5" y="468.0" />
+      <point x="194.5" y="197.0" />
+      <point x="168.18913043478256" y="197.0" />
+      <point x="168.18913043478256" y="187.0" />
+      <point x="328.03115942029007" y="187.0" />
+      <point x="-43.0" y="83.0" />
+    </edge>
+    <edge source="com.example.demo.controller.RegistrationController" target="com.example.demo.model.User" relationship="CREATE">
+      <point x="-63.66666666666674" y="-28.0" />
+      <point x="1169.25" y="793.0" />
+      <point x="1130.6978260869569" y="793.0" />
+      <point x="1130.6978260869569" y="478.0" />
+      <point x="823.5311594202901" y="478.0" />
+      <point x="823.5311594202901" y="438.0" />
+      <point x="940.4478260869568" y="438.0" />
+      <point x="-40.25" y="94.0" />
+    </edge>
+    <edge source="com.example.demo.controller.PatientController" target="com.example.demo.service.PatientService" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="406.41666666666663" y="674.0" />
+      <point x="410.82934782608675" y="674.0" />
+      <point x="410.82934782608675" y="664.0" />
+      <point x="391.78115942029007" y="664.0" />
+      <point x="60.25" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.controller.NurseController" target="com.example.demo.service.NurseService" relationship="TO_ONE">
+      <point x="62.0" y="-28.0" />
+      <point x="1020.25" y="793.0" />
+      <point x="1033.1891304347826" y="793.0" />
+      <point x="56.25" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.service.UserService" target="com.example.demo.repository.UserRepository" relationship="TO_ONE">
+      <point x="52.75" y="-28.0" />
+      <point x="1300.4478260869569" y="674.0" />
+      <point x="1327.5728260869569" y="674.0" />
+      <point x="49.75" y="28.0" />
+    </edge>
+    <edge source="com.example.demo.controller.PatientController" target="com.example.demo.service.PatientService" relationship="TO_ONE">
+      <point x="-67.66666666666669" y="-28.0" />
+      <point x="338.74999999999994" y="674.0" />
+      <point x="271.28115942029007" y="674.0" />
+      <point x="-60.25" y="28.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6842650103519669" showDependencies="true" x="689.0" y="473.0" />
+  <SelectedNodes>
+    <node>com.example.demo.controller.LoginController</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

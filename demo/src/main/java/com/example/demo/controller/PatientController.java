@@ -70,4 +70,12 @@ public class PatientController {
         return "patient/viewDoctors";
     }
 
+    @GetMapping("/showAppointments")
+    public String showAppointments(Model model, Authentication authentication){
+        String username = authentication.getName();
+        ArrayList<Appointment> list = patientService.showAppointments(username);
+        model.addAttribute("appointment", list);
+        return "patient/showAppointments";
+    }
+
 }

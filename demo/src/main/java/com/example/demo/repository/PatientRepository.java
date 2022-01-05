@@ -48,7 +48,7 @@ public class PatientRepository {
             insertStatement.setString(3, appointment.getDate());
             insertStatement.setString(4, appointment.getTime());
             insertStatement.executeUpdate();
-            insertDoctorNotify(dbConnection, appointment);
+            //insertDoctorNotify(dbConnection, appointment);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +59,8 @@ public class PatientRepository {
     }
 
     private static final String insertDoctorNotify = "INSERT INTO doctorNotify (usernameDoctor, message)" + " VALUES (?,?)";
-    private void insertDoctorNotify(Connection dbConnection, Appointment appointment) {
+    public void insertDoctorNotify(Appointment appointment) {
+        Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement insertStatement1 = null;
         try {
             insertStatement1 = dbConnection.prepareStatement(insertDoctorNotify, Statement.RETURN_GENERATED_KEYS);
@@ -112,6 +113,30 @@ public class PatientRepository {
             Statement statement = connection.createStatement();
             statement.execute(rezSelect);
             ResultSet rs = statement.getResultSet();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String createSelectQueryForAppointments() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT ");
+        sb.append(" * ");
+        sb.append(" FROM ");
+        sb.append("appointment WHERE usernamePatient = ?");
+        return sb.toString();
+    }
+
+    public ResultSet showAppointments(String usernamePatient) {
+        Connection connection = ConnectionFactory.getConnection();
+        String rezSelect = createSelectQueryForAppointments();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(rezSelect);
+            statement.setString(1, usernamePatient);
+            ResultSet rs = statement.executeQuery();
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();
