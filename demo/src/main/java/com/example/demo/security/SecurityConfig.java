@@ -74,14 +74,10 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsManager userDetailsManager() {
-
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
-
         jdbcUserDetailsManager.setDataSource(securityDataSource);
-
         return jdbcUserDetailsManager;
     }
-
 }
 
 class PasswordEnconderTest implements PasswordEncoder {

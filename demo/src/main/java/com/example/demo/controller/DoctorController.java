@@ -73,7 +73,7 @@ public class DoctorController {
         return "doctor/addNurse";
     }
 
-    @DeleteMapping("/deleteNurse/{username}")
+    @GetMapping("/deleteNurse/{username}")
     public String deleteNurse(@PathVariable String username, Model model) {
         model.addAttribute("username", username);
         doctorService.deleteNurse(username);

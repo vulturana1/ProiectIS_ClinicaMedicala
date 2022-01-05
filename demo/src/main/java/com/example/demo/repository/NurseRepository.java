@@ -23,7 +23,7 @@ public class NurseRepository {
                 insertStatement.setString(2, user.getLastName());
                 insertStatement.setString(3, user.getUsername());
                 insertStatement.setString(4, user.getPassword());
-                insertStatement.setString(5, user.getRole());
+                insertStatement.setString(5, "PATIENT");
                 insertStatement.setString(6, user.getPhoneNumber());
                 insertStatement.executeUpdate();
             } else {
