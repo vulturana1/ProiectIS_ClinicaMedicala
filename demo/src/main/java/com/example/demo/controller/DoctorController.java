@@ -31,7 +31,6 @@ public class DoctorController {
         String username = authentication.getName();
         user = doctorService.findDoctor(username);
         model.addAttribute("user", user);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "doctor/index";
     }
 

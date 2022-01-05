@@ -32,7 +32,6 @@ public class PatientController {
         String username = authentication.getName();
         user = patientService.showDetails(username);
         model.addAttribute("user", user);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "patient/index";
     }
 

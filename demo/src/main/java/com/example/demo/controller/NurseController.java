@@ -30,7 +30,6 @@ public class NurseController {
         String username = authentication.getName();
         user = nurseService.findNurse(username);
         model.addAttribute("user", user);
-        model.addAttribute("mapsApiKey", getProperty("mapsKey"));
         return "nurse/index";
     }
 
